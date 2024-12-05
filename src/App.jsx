@@ -1,16 +1,22 @@
+import { useState } from "react"
 import GameBoard from "./components/gameboard"
 import Player from "./components/player"
 
 function App() {
-  
+  const [activePlayer, setActivePlayer] = useState('X');
+
+  function handleSelectedSquare() {
+    setActivePlayer((curActivePlayer) => curActivePlayer === 'X' ? 'O' : 'X');
+  }
+
   return (
     <main>
       <div id="game-container">
-        <ol id="players">
-            <Player initialPlayerName="Khonza" symbol="X" />
-            <Player initialPlayerName="Nosiphiwo" symbol="O" />
+        <ol id="players" className="highlight-player">
+            <Player initialPlayerName="Khonza" symbol="X" isActive={activePlayer === 'X'} />
+            <Player initialPlayerName="Nosiphiwo" symbol="O" isActive={activePlayer === 'O'} />
         </ol>
-        <GameBoard />
+        <GameBoard onSelectSquare={handleSelectedSquare} activePlayerSymbol={activePlayer} />
       </div>
 
       LOG
